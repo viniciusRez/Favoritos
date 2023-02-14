@@ -1,0 +1,16 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Favoritos" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/Cinza_Claro</item>
+        <item name="colorPrimaryVariant">@color/Cinza_Escuro</item>
+        <item name="colorOnPrimary">@color/Verde_Lima</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/Verde_Lima</item>
+        <item name="colorSecondaryVariant">@color/Cinza_Claro</item>
+        <item name="colorOnSecondary">@color/Verde_Lima</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+    </style>
+</resources>
