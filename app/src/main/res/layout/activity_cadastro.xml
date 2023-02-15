@@ -6,7 +6,7 @@
     android:id="@+id/SpinOption"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CadastroActivity">
+    tools:context=".Activity.CadastroActivity">
 
     <include
         android:id="@+id/include2"
@@ -119,7 +119,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
-        android:text="Avaliação do filme"
+        android:text="Avaliação do filmeModel"
         android:textSize="24dp"
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"

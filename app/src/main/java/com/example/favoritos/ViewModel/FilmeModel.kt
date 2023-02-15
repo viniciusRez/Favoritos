@@ -1,11 +1,11 @@
-package com.example.favoritos
+package com.example.favoritos.ViewModel
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "Filme")
-data class Filme(
+@Entity(tableName = "FilmeModel")
+data class FilmeModel(
     @PrimaryKey(autoGenerate = true) val uid:Int?,
     @ColumnInfo(name="nome") val nome: String,
     @ColumnInfo(name="duracao") val duracao: String?,

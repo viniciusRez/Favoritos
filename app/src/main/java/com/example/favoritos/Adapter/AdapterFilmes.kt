@@ -1,4 +1,4 @@
-package com.example.favoritos
+package com.example.favoritos.Adapter
 
 
 import android.annotation.SuppressLint
@@ -13,8 +13,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
+import com.example.favoritos.Activity.CadastroActivity
+import com.example.favoritos.ViewModel.CrudViewModel
+import com.example.favoritos.ViewModel.FilmeModel
+import com.example.favoritos.R
 
-class AdapterFilmes(private val dataSet: MutableList<Filme>?) :
+class AdapterFilmes(private val dataSet: MutableList<FilmeModel>?) :
     Adapter<AdapterFilmes.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -24,7 +28,7 @@ class AdapterFilmes(private val dataSet: MutableList<Filme>?) :
         val capa: ImageView
         val btnDelete: Button
         val btnAtualizar: Button
-        val crudDados: CrudDados
+        val crudViewModel: CrudViewModel
 
         init {
             nome = view.findViewById(R.id.txtNome)
@@ -32,7 +36,7 @@ class AdapterFilmes(private val dataSet: MutableList<Filme>?) :
             capa = view.findViewById(R.id.imgCapa)
             btnDelete = view.findViewById(R.id.btnDelete)
             btnAtualizar = view.findViewById(R.id.btnEditar)
-            crudDados = CrudDados(view.context)
+            crudViewModel = CrudViewModel(view.context)
             status = view.findViewById(R.id.txtStatus)
         }
     }
@@ -58,14 +62,14 @@ class AdapterFilmes(private val dataSet: MutableList<Filme>?) :
                     false
                 )
             })
-            viewHolder.nome.text = "Filme: ${it[position].nome}"
+            viewHolder.nome.text = "FilmeModel: ${it[position].nome}"
             viewHolder.status.text = "Status: ${it[position].status}"
             it[position].avaliacao?.let {
                 viewHolder.avaliacao.text = "Avaliação: $it"
             }
             viewHolder.btnDelete.setOnClickListener { view ->
                 view
-                viewHolder.crudDados.delete(it[position])
+                viewHolder.crudViewModel.delete(it[position])
                 it.removeAt(position)
                 notifyItemRemoved(position)
             }

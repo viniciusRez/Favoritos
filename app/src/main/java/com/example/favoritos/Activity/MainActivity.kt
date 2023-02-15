@@ -1,4 +1,4 @@
-package com.example.favoritos
+package com.example.favoritos.Activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,6 +6,10 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.RecyclerView
+import com.example.favoritos.Adapter.AdapterFilmes
+import com.example.favoritos.Service.AppDataBase
+import com.example.favoritos.ViewModel.FilmeModel
+import com.example.favoritos.R
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -35,12 +39,12 @@ class MainActivity : AppCompatActivity() {
             dataSet = readData()
         )
     }
-    private fun readData(): MutableList<Filme> {
-        lateinit var filme: Filme
+    private fun readData(): MutableList<FilmeModel> {
+        lateinit var filmeModel: FilmeModel
         GlobalScope.launch {
-            val data: MutableList<Filme> = appdb.filmeDao().getAll() as MutableList<Filme>
+            val data: MutableList<FilmeModel> = appdb.filmeDao().getAll() as MutableList<FilmeModel>
         }
-        val data: MutableList<Filme> = appdb.filmeDao().getAll() as MutableList<Filme>
+        val data: MutableList<FilmeModel> = appdb.filmeDao().getAll() as MutableList<FilmeModel>
         return data
     }
 }

@@ -1,4 +1,4 @@
-package com.example.favoritos
+package com.example.favoritos.Activity
 
 import android.app.Activity
 import android.content.Intent
@@ -12,6 +12,11 @@ import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.example.favoritos.*
+import com.example.favoritos.Service.AppDataBase
+import com.example.favoritos.ViewModel.CrudViewModel
+import com.example.favoritos.ViewModel.FilmeModel
+import com.example.favoritos.ViewModel.Status
 import java.io.ByteArrayOutputStream
 
 
@@ -62,11 +67,11 @@ class CadastroActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
 
-        val crudDados = CrudDados(this)
+        val crudViewModel = CrudViewModel(this)
         val uidUser: Int = intent.getIntExtra("uid", -1)
 
         if (uidUser != -1) {
-            val dadosUser = crudDados.readData(uidUser)
+            val dadosUser = crudViewModel.readData(uidUser)
             val bmp = dadosUser[0].capa?.let { BitmapFactory.decodeByteArray(it, 0, it.size) }
             imgCapa.setImageBitmap(bmp?.let { Bitmap.createScaledBitmap(it, 150, 200, false) })
 
@@ -88,10 +93,10 @@ class CadastroActivity : AppCompatActivity() {
                 }
             }
             btnCadastro.setOnClickListener {
-                crudDados.delete(dadosUser[0])
+                crudViewModel.delete(dadosUser[0])
                 newFilme()?.let { it1 ->
-                    if (crudDados.writeData(it1)) {
-                        Toast.makeText(this, "Filme Atualizado com sucesso", Toast.LENGTH_SHORT)
+                    if (crudViewModel.writeData(it1)) {
+                        Toast.makeText(this, "FilmeModel Atualizado com sucesso", Toast.LENGTH_SHORT)
                             .show()
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
@@ -109,8 +114,8 @@ class CadastroActivity : AppCompatActivity() {
             btnCadastro.setOnClickListener {
 
                 newFilme()?.let { it1 ->
-                    if (crudDados.writeData(it1)) {
-                        Toast.makeText(this, "Filme cadastrado com sucesso", Toast.LENGTH_SHORT)
+                    if (crudViewModel.writeData(it1)) {
+                        Toast.makeText(this, "FilmeModel cadastrado com sucesso", Toast.LENGTH_SHORT)
                             .show()
                         finish()
                         val intent = Intent(this, MainActivity::class.java)
@@ -118,7 +123,7 @@ class CadastroActivity : AppCompatActivity() {
                     } else {
                         Toast.makeText(
                             this,
-                            "Filme já cadastrado",
+                            "FilmeModel já cadastrado",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
@@ -130,7 +135,7 @@ class CadastroActivity : AppCompatActivity() {
         }
     }
 
-    private fun newFilme(): Filme? {
+    private fun newFilme(): FilmeModel? {
         //EditText
         val edtNome: EditText = findViewById(R.id.txtNome)
         val edtDuracao: EditText = findViewById(R.id.txtDuracao)
@@ -161,14 +166,14 @@ class CadastroActivity : AppCompatActivity() {
 
                 return if (avaliacaoString.isNotEmpty()) {
                     val avaliacaoDouble = avaliacaoString.toDouble()
-                    Filme(null, nome, duracao, avaliacaoDouble, status, imageInByte)
+                    FilmeModel(null, nome, duracao, avaliacaoDouble, status, imageInByte)
 
                 } else {
                     Toast.makeText(this, "De uma nota!", Toast.LENGTH_SHORT).show()
                     null
                 }
             } else {
-                return Filme(null, nome, duracao, null, status, imageInByte)
+                return FilmeModel(null, nome, duracao, null, status, imageInByte)
 
             }
         } else {
